@@ -1,26 +1,80 @@
+const { name } = require('ejs');
+const task=require('../models/model');
+const wrapAsync=require('../middleware/asyncwrapper');
+const customError=require('../error/cutom-er');
+const res = require('express/lib/response');
+const { response } = require('express');
+const { append } = require('express/lib/response');
 
-const getTask=(req,res,next)=>{
-    res.json({"hello":"world    "});
+    /*
+    //pattern for creating 
+    const test=wrapAsync(async()=>{
+        const data=await hello();
+        if(!data){
+            throw new AppError('some error',400);
+        }
+        res.json(data);
 
-}
+    })
+    */
+const getTask=wrapAsync(async(req,res,next)=>{ // --->get all task get route 
+    const data=await task.find({});
+    if(!data){
+        throw new customError('cannot get data',400);
+    }
+    res.json(data);
+
+})
 
 
-const getTaskById=(req,res,next)=>{
-    res.send('Task by id');
+const getTaskById=wrapAsync(async(req,res,next)=>{ //--->get task by id get route
+    const {id}=req.params;
+    const data=await task.find({_id:id});
+    if(!data){
+        throw new customError('connot get data from db',400);
+    }
+    res.json(data);
 
-}
+})
 
-const editTask=(req,res,next)=>{
-    res.send('edit task by id');
-}
+const editTask=wrapAsync(async(req,res,next)=>{ //---> edit task patch route
+    const {id}=req.params;
+    const {name,completed}=req.body;
+    const dataForEdit=await task.findOneAndUpdate({_id:id},{name:name,completed:completed},{runValidators:true,new:true});
+    if(!dataForEdit){
+        throw new customError('canot edit data',401);
+    }
+    res.json(output);
+    
+})
 
-const deleteTask=(req,res,next)=>{
-    res.send('delete task by id')
-}
+const deleteTask= wrapAsync(async(req,res,next)=>{ //--->delete by id taks delete route
+
+    const {id}=req.params;
+    const delData=await task.findOneAndDelete({_id:id});
+    if(!delData){
+        throw new customError('cannot remove data',400);
+    }
+    res.json(delData);
+
+})
+
+const createTask= wrapAsync(async(req,res,next)=>{ //---> create a task in db
+
+    const newData=await task.create(req.body);  
+    if(!newData){
+        throw new customError('cannot create new data',400);
+    }
+    res.json(newData);
+    
+})
+
 
 module.exports={
     getTask,
     getTaskById,
     editTask,
-    deleteTask
+    deleteTask,
+    createTask
+
 }

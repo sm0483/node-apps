@@ -5,9 +5,10 @@ const {
     getTask,
     getTaskById,
     editTask,
-    deleteTask
-}=require('../controller/controller')
+    deleteTask,
+    createTask
+}=require('../controller/controller');
 router.route('/:id').get(getTaskById).patch(editTask).delete(deleteTask);
-router.route('/').get(getTask);
+router.route('/').get(getTask).post(createTask);
 module.exports=router;
 
