@@ -1,6 +1,7 @@
 const express=require('express');
 const app=express();
 const task=require('./routes/routes');
+const notAllow=require('./middleware/not-allow');
 
 const db=require('./db/db');
 
@@ -19,3 +20,4 @@ app.listen(3000,()=>{
 app.use(express.json());
 app.use('/api1/tasks',task);
 app.use(handleError);
+

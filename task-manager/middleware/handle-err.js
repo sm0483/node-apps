@@ -1,13 +1,18 @@
 const customError=require('../error/cutom-er');
+
 const handleError=(err,req,res,next)=>{
-    console.log(err);
-    const message=err.message;
-    const code=err.code;
-    console.log(message,code)
-    const errObj={};
-    errObj[message]=code;
-    //console.log(errObj);
-    res.json(errObj);
+    //console.log(err);
+    if(err instanceof customError){
+        console.log(`instenouse: ${err}`);
+        res.status(400).json(err);
+    }
+    else{
+        //console.log(`not instenouse: ${err}`);
+        let err={
+            message:'not found'
+        }
+        res.status(400).json(err);
+    }
 }
 
 module.exports=handleError;

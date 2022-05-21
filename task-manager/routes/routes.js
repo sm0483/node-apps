@@ -1,6 +1,7 @@
 const express=require('express');
 const app=express();
 const router=express.Router();
+const notAllow=require('../middleware/not-allow');
 const {
     getTask,
     getTaskById,
@@ -8,7 +9,7 @@ const {
     deleteTask,
     createTask
 }=require('../controller/controller');
-router.route('/:id').get(getTaskById).patch(editTask).delete(deleteTask);
-router.route('/').get(getTask).post(createTask);
+router.route('/:id').get(getTaskById).patch(editTask).delete(deleteTask).all(notAllow);
+router.route('/').get(getTask).post(createTask).all(notAllow);
 module.exports=router;
 
