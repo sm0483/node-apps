@@ -1,5 +1,7 @@
 const mongoose=require('mongoose');
-const url="mongodb+srv://test-user:test@task-manager.7ofaz.mongodb.net/?retryWrites=true&w=majority"
+require('dotenv').config();
+
+const url=process.env.MONGO_URL;
 
 let db=async ()=>{
     try{

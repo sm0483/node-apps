@@ -4,6 +4,9 @@ const task=require('./routes/routes');
 const notAllow=require('./middleware/not-allow');
 
 const db=require('./db/db');
+//config dot env
+require('dotenv').config();
+
 
 //run data base connection
 db();
