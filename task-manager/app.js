@@ -2,6 +2,8 @@ const express=require('express');
 const app=express();
 const task=require('./routes/routes');
 const notAllow=require('./middleware/not-allow');
+const cors=require('cors');
+app.use(cors());
 
 const db=require('./db/db');
 //config dot env
@@ -23,4 +25,7 @@ app.listen(3000,()=>{
 app.use(express.json());
 app.use('/api1/tasks',task);
 app.use(handleError);
+
+
+//cors setting for api to work with fetch
 
