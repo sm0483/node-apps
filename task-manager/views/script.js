@@ -1,4 +1,4 @@
-
+// script
 const textAreaIn=document.querySelector('.task-class');
 const submitBtn=document.querySelector('.submit-btn');
 const formIn=document.querySelector('.task-manager');
