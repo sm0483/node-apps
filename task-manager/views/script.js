@@ -33,13 +33,20 @@ const removeData=async(id)=>{ //-->to remove data from db
 
 }
 
+const editTask =(id)=>{
+    //save data to local storage and operate on next page
+    localStorage.clear();
+    localStorage.setItem("_id",id);
+
+}
+
 
 const createBtn=(id)=>{ //-->create btn for all creted output
     //addeventlistner on edit button
     let btnEdit=document.querySelector(`#edit${id}`);
     btnEdit.addEventListener('click',()=>{
         console.log('edit button'); //remvoe data
-        //editTask(id);
+        editTask(id);
 
     })
 

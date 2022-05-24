@@ -1,0 +1,68 @@
+*{
+    box-sizing: border-box;
+    margin:0;
+
+}
+
+
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height:100vh;
+    background-color: aliceblue;
+}
+
+.main-container{
+    background-color: white;
+    width: 505px ;
+    height:  250px;
+    padding: 30px;
+    border-radius: 2rem;
+
+}
+
+.main-head{
+    display: flex;
+    justify-content: center;
+    margin-bottom:1rem;
+}
+
+
+.main-body{
+    padding-left: 2rem;
+    padding-top: 20px;
+}
+
+.task-id-class{
+    border: 0;
+    background-color: white;
+    pointer-events: none;
+}
+
+label{
+    font-weight: 400;
+    line-height: 1.75;
+}
+
+button{
+    margin-top: 0;
+    width: 50px;
+    border-radius: 0;
+    border-top-right-radius: var(--borderRadius);
+    border-bottom-right-radius: var(--borderRadius);
+    background-color: #7fa0f8;        
+    border: 1px;
+    padding: 2px;
+
+}
+
+.name-area{
+    display: inline;
+    height: 15px;
+    
+}
+
+.back-button{
+    text-align: center;
+}

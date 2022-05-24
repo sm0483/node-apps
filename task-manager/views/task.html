@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="task.css"/>
+    <title>Task</title>
+</head>
+<body>
+    <div class="main-container">
+    <div class="main-head">
+        <h2>Edit Task</h2>
+    </div>
+    <form class="main-form">
+    <div class="main-body">
+        <div class="heading">
+        <label for="task-id">Task id</label>
+        <input type="text" name="task-id" class='task-id-class'/>
+        </div>
+        <div class="name-area">
+            <label for ='task-form'>Name</label>
+                <input type="text" name="task-form" class="edit-task">
+        </div>
+        <div class="main-footer">
+            <div class="class-comp">
+                <label>Completed</label>
+            <input type="checkbox" class="completed">
+            </div>
+            <div class="edit-button">
+                <button class="edit-btn">Edit</button>
+            </div>
+        </div>
+    </div>
+    </form>
+    </div>
+    <div>
+        <a href="file:///home/user/Desktop/node/task-manager/views/index.html">
+            <button class="back-button">Go back</button>
+        </a> 
+    </div>
+    <script src="task-script.js" defer></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</body>
+</html>
