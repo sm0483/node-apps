@@ -106,7 +106,20 @@ h2{
     justify-content: space-around;
     background-color: aliceblue;
     position:relative;
-}  
+}
+
+.underline{
+    font-size: 1.456rem;
+    background: var(--backgroundColor);
+    color: var(--textColor);
+    font-family: var(--bodyFont);
+    font-weight: 100;
+    line-height: 1.6;
+    text-decoration: line-through black;
+}
+
+
+
 
 .task-list button{
     position: relative;
@@ -121,3 +134,4 @@ h2{
     pointer-events: 0;
     opacity: 0;
 }
+

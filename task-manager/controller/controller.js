@@ -44,14 +44,16 @@ const editTask=wrapAsync(async(req,res,next)=>{ //---> edit task patch route
     if(!dataForEdit){
         throw new customError('canot edit data',401);
     }
-    res.json(output);
+    res.json(dataForEdit);
     
 })
 
 const deleteTask= wrapAsync(async(req,res,next)=>{ //--->delete by id taks delete route
-
+    //console.log(req);
     const {id}=req.params;
+    //console.log(id);
     const delData=await task.findOneAndDelete({_id:id});
+    //console.log(delData);
     if(!delData){
         throw new customError('cannot remove data',400);
     }
@@ -76,5 +78,4 @@ module.exports={
     editTask,
     deleteTask,
     createTask
-
 }
