@@ -2,16 +2,18 @@ const express=require('express');
 const app=express();
 const productRoute=require('./router/router');
 const connectDb=require('./db/connect'); //-->mongo connection
-app.use(express.json());
+const notFound = require('./middleware/not-found');
+const errorHandler=require('./error/unknown-error');
+//app.use(express.json());
 
 require('dotenv').config(); //-->use for env file
 
 
-app.listen(3000,()=>{
+app.listen(5000,()=>{
     console.log('connected...');
 })
 
-app.use('/api/v1/products',productRoute);
+app.use('/api/v2/products',productRoute);
 
 const start=async()=>{
     try{
@@ -22,7 +24,8 @@ const start=async()=>{
     }
 }
 
-
+app.use(errorHandler);
+app.use(notFound);
 
 start();
 

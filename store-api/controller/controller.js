@@ -1,11 +1,11 @@
 const product=require('../models/schema');
 const wrapAsync=require('../error/async.js');
+const CustomError=require('../error/custom-error');
 
 const getProductsStatic = wrapAsync( async (req,res,next)=>{
         const productAll=await product.find({});
         if(!productAll){
-            console.log('error');
-            res.send('issue');
+            throw new CustomError('mongoose error',500);
         }
         res.status(200).send(productAll);
 })
@@ -89,7 +89,10 @@ const getProducts =wrapAsync(async(req,res,next)=>{
             updateBasedOnField(fields,result);
         }
 
-        const responseData=await result;      
+        const responseData=await result;
+        if(!responseData){
+            throw new CustomError('internal Error',500);
+        }      
         res.status(200).json(responseData);
 })
 
