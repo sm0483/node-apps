@@ -24,5 +24,6 @@ const start=async()=>{
 }
 
 start();
-
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use('/store/api/v1',productRoute);
