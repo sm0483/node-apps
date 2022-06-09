@@ -4,14 +4,14 @@ const {
     getAllData,
     getData,
     createToken,
-    verifyToken
 }=require('../controller/controller');
+const verifyToken=require('../middleware/verify');
 
 
-router.route('/').get(getAllData);
+router.route('/').get(verifyToken,getAllData);
 router.route('/static').get(getData);
-router.route('/login').post(createToken);
-router.route('/auth').post(verifyToken);
+router.route('/signup').post(createToken);
+
 
 
 module.exports=router;
