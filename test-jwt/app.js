@@ -1,5 +1,6 @@
 const express=require('express');
 const app=express();
+const notFound=require('./middleware/not-found');
 
 const connectDb=require('./db/connect'); //used to connect db
 require('dotenv').config(); //configure env files
@@ -27,6 +28,8 @@ start();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/store/api/v1',productRoute);
+app.use(notFound);
 app.use(errorHandler);
+
 
 
