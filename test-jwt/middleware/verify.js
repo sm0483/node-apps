@@ -1,4 +1,4 @@
-const CustomError=require('../error/async');
+const CustomError=require('../error/cutomerror');
 const jwt=require('jsonwebtoken');
 const privateKey=process.env.key;
 

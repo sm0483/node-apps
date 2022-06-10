@@ -1,12 +1,19 @@
 const CustomError=require('../error/cutomerror');
+
 const errorHandler= (err,req,res,next)=>{
+    console.log(err.message,err.status);
     if(err instanceof CustomError){
-        console.log('customeError');
-        res.send('cu');
+        const {message,status}=err;
+        res.status(status).json({
+            "message":message,
+            "status":status
+        })
     }
     else{
-        console.log('not custom');
-        res.send('not cu');
+        res.status().json({
+            "message":"The server is not ready to handle the request",
+            "status":503
+        })
     }
 }
 
