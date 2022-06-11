@@ -4,6 +4,7 @@ const jobRoute=require('./routes/route');
 const connectDb=require('./db/connect');
 require('dotenv').config();
 const errorHandler=require('./middleware/error');
+const pageNotFound=require('./middleware/not-found');
 app.use(express.json());
 
 
@@ -25,4 +26,5 @@ const start=async()=>{ //-->used to connect with db
 start();
 
 app.use('/api/v1/jobs',jobRoute);
+app.use(pageNotFound);
 app.use(errorHandler);
