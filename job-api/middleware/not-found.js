@@ -1,9 +1,6 @@
-
-const pageNotFound=()=>{
-    res.status(404).json({
-        "message":"The server can not find the requested resource",
-        "status":404
-    })
+const CustomError=require('../error/custom');
+const pageNotFound=(req,res,next)=>{
+    throw new CustomError("The server can not find the requested resource",404);
 }
 
 module.exports=pageNotFound;
