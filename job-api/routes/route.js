@@ -1,12 +1,12 @@
 const express=require('express');
-const { route } = require('express/lib/application');
 const router=express.Router();
 const {
     getJobs,
-    getJobsTest
+    getJobsTest,
+    createUser
 }=require('../controller/controller');
-router.route('/static').get(getJobsTest);
-router.route('/').get(getJobs);
 
+router.route('/static').get(getJobsTest);
+router.route('/signup').post(createUser);
 
 module.exports=router;
