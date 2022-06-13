@@ -1,25 +1,40 @@
 const asyncWrapper=require('../error/asyn');
+const CustomError = require('../error/main-custom');
+const jobModel=require('../models/job-schema');
 
-const createJob=asyncWrapper(async()=>{  //-->create new job
-
+const createJob=asyncWrapper(async(req,res)=>{  //-->create new job
+    req.body.createdBy=req.user.userId;
+    const createdData=await jobModel.create(req.body);
+    res.status(200).json(createdData);
 })
 
-const updateJob=asyncWrapper(async()=>{  //-->edit  job
-
+const updateJob=asyncWrapper(async(req,res)=>{  //-->edit  job
+    const {id}=req.params;
+    const {company,position,status}=req.body;
+    const updatedData=await jobModel.findOneAndUpdate({_id:id},{company:company,position:position,status:status},{runValidators:true,new:true});
+    console.log(updatedData);
+    res.status(200).json(updatedData);
 })
 
 
 const getAllJob=asyncWrapper(async(req,res)=>{  //-->get all job
-    res.send('hello world');
-    
-
+    const id=req.user.userId;
+    const findData=await jobModel.find({createdBy:id});
+    res.status(200).json(findData)
 })
 
-const getJobById=asyncWrapper(async()=>{ //-->get job by id
-
-
+const getJobById=asyncWrapper(async(req,res)=>{ //-->get job by id
+    const {id}=req.params;
+    const dataById=await jobModel.findOne({_id:id});
+    if(!dataById) throw new CustomError('data dosen"t exsist',400)
+    res.status(200).json(dataById);
 })
-const deleteJob=asyncWrapper(async()=>{  //-->delete job
+
+const deleteJob=asyncWrapper(async(req,res)=>{  //-->delete job
+    const {id}=req.params;
+    const delData=await jobModel.findOneAndDelete({_id:id});
+    if(!delData) throw new CustomError('Cannot remove data',400);
+    res.status(200).json(delData);
 
 })
 

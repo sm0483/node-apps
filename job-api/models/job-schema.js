@@ -10,18 +10,19 @@ const jobSchema=new mongoose.Schema({
     position:{
         type:String,
         required:[true,'position cant"t be empty'],
-        default:pending
+        default:"pending"
+   
 
     },
     status:{
         type:String,
         enun:['interview','declined','pending'],
-        default:pending
+        default:"pending"
 
     },
     createdBy:{
         type:mongoose.Types.ObjectId,
-        ref:'user',
+        ref:'User',
         required:[true,'can"t have user empty']
 
     }
@@ -30,4 +31,4 @@ const jobSchema=new mongoose.Schema({
 
 const Job=mongoose.model('Job',jobSchema);
 
-module.exports=job;
+module.exports=Job;
