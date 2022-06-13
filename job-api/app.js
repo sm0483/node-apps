@@ -1,11 +1,21 @@
 const express=require('express');
 const app=express();
-const jobRoute=require('./routes/route');
+
+
+//routes
+const userRoute=require('./routes/user-route');
+const jobRoute=require('./routes/job-route');
+
+//used to connect with db
 const connectDb=require('./db/connect');
 require('dotenv').config();
+
+
 const errorHandler=require('./middleware/error');
 const pageNotFound=require('./middleware/not-found');
 app.use(express.json());
+
+
 
 
 app.listen(3000,()=>{
@@ -25,6 +35,8 @@ const start=async()=>{ //-->used to connect with db
 
 start();
 
+app.use('/api/v1/auth',userRoute);
 app.use('/api/v1/jobs',jobRoute);
+
 app.use(pageNotFound);
 app.use(errorHandler);

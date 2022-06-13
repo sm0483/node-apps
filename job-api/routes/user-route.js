@@ -4,7 +4,7 @@ const {
     createUser,
     login,
     testFunction
-}=require('../controller/controller');
+}=require('../controller/user-controller');
 
 router.route('/static').get(testFunction);
 router.route('/register').post(createUser);
