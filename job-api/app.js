@@ -10,6 +10,8 @@ const jobRoute=require('./routes/job-route');
 const connectDb=require('./db/connect');
 require('dotenv').config();
 
+//middleware for auth
+const authMiddleware=require('./middleware/auth');
 
 const errorHandler=require('./middleware/error');
 const pageNotFound=require('./middleware/not-found');
@@ -36,7 +38,7 @@ const start=async()=>{ //-->used to connect with db
 start();
 
 app.use('/api/v1/auth',userRoute);
-app.use('/api/v1/jobs',jobRoute);
+app.use('/api/v1/jobs',authMiddleware,jobRoute);
 
 app.use(pageNotFound);
 app.use(errorHandler);
