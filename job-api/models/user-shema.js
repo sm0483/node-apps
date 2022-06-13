@@ -1,9 +1,9 @@
-const { use } = require('express/lib/router');
 const mongoose=require('mongoose');
 const bcrypt=require('bcrypt');
+const jwt=require('jsonwebtoken'); 
 
 
-const userSchema=new mongoose.Schema({
+let userSchema=new mongoose.Schema({
     name:{
         type:String,
         required:[true,'name field can"t be empty'],
@@ -19,9 +19,9 @@ const userSchema=new mongoose.Schema({
     },
     password:{
         type:String,
-        required:[true,'password fied can"t empty'],
+        required:[true,'password filed can"t empty'],
         maxlength:6
-    }
+    },
 })
 
 
@@ -30,5 +30,20 @@ userSchema.pre('save',async function(){
     this.password=await bcrypt.hash(this.password,salt);
 })
 
+userSchema.methods.createJWT=function(){
+    return jwt.sign({
+        userId:this._id,
+        name:this.name
+
+    },process.env.key,{expiresIn:'30d'});
+}
+
+
+userSchema.methods.comparePasswd =async function(candidatePassword){
+    const isMatch=await bcrypt.compare(candidatePassword,this.password);
+    return isMatch;    
+}
+
+                   
 const User=mongoose.model('User',userSchema);
-module.exports=User;
+module.exports=User
