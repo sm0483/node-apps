@@ -12,7 +12,7 @@ const updateJob=asyncWrapper(async(req,res)=>{  //-->edit  job
     const {id}=req.params;
     const {company,position,status}=req.body;
     const updatedData=await jobModel.findOneAndUpdate({_id:id},{company:company,position:position,status:status},{runValidators:true,new:true});
-    console.log(updatedData);
+   // console.log(updatedData);
     res.status(200).json(updatedData);
 })
 

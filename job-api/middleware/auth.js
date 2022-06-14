@@ -4,11 +4,12 @@ const asyncWrapper=require('../error/asyn');
 
 const authUser=asyncWrapper( async (req,res,next)=>{
     let token=req.headers.authorization;
+    if(!token) throw new CustomError('no token present',401);
     if(!token.startsWith('Bearer')) throw new CustomError('The request could not be understood by the server due to incorrect syntax',400);
     token=token.split(' ')[1];
     try{
         const responce=await jwt.verify(token,process.env.key);
-        console.log(responce);
+        //console.log(responce);
 
         //manipulate or create req.body for use
         req.user={
