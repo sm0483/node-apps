@@ -25,7 +25,44 @@ const userDataPassword={
     password:"12345"
 }
 
+describe("/Post route (Login)",()=>{
+    test("/Post route login all present(sucess)",async()=>{
+        const responce=await request(app).post('/api/v1/auth/login')
+        .set('Content-type','application/json')
+        .send(userData)
+        expect(responce.statusCode).toBe(200);
+        expect(responce.type).toBe('application/json');
 
+    })
+
+
+    test("/Post route login email present(fail)",async()=>{
+        const responce=await request(app).post('/api/v1/auth/login')
+        .set('Content-type','application/json')
+        .send(userDataEmail);
+        expect(responce.statusCode).toBe(400);
+        expect(responce.type).toBe('application/json');
+    })
+
+    test("/Post route login password present(fail)",async()=>{
+        const responce=await request(app).post('/api/v1/auth/register')
+        .set('Content-type','application/json')
+        .send(userDataPassword);
+        expect(responce.statusCode).toBe(400);
+        expect(responce.type).toBe('application/json');
+    })
+
+
+    test("/Post route login name present(fail)",async()=>{
+        const responce=await request(app).post('/api/v1/auth/register')
+        .set('Content-type','application/json')
+        .send(userDataName);
+        expect(responce.statusCode).toBe(400);
+        expect(responce.type).toBe('application/json');
+    })
+
+
+})
 
 
 describe("/Post route (Register)",()=>{
