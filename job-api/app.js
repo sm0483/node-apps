@@ -27,7 +27,7 @@ app.listen(3000,()=>{
 const start=async()=>{ //-->used to connect with db
     try{
         const connect=await connectDb(process.env.URL);
-        console.log('connectd with db----');
+        //console.log('connectd with db----');
     }
     catch(err){
         console.trace(err);
@@ -42,3 +42,8 @@ app.use('/api/v1/jobs',authMiddleware,jobRoute);
 
 app.use(pageNotFound);
 app.use(errorHandler);
+
+
+module.exports={
+    app
+}

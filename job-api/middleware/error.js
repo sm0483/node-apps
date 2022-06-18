@@ -2,7 +2,6 @@ const CustomError=require('../error/main-custom');
 
 const errorHandler=(err,req,res,next)=>{
     const {message,status}=err;
-    console.log(err);
     console.log(`from errorHandler ${err}`); //--->for testing
     if(err instanceof CustomError){
         res.status(status).json({

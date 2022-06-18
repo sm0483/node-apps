@@ -2,7 +2,10 @@ const asyncWrapper=require('../error/asyn');
 const CustomError = require('../error/main-custom');
 const jobModel=require('../models/job-schema');
 
+
 const createJob=asyncWrapper(async(req,res)=>{  //-->create new job
+    const {company,position}=req.body;
+    if(!company || !position) throw new CustomError("field can't be empty",400);
     req.body.createdBy=req.user.userId;
     const createdData=await jobModel.create(req.body);
     res.status(200).json(createdData);
