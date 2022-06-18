@@ -9,12 +9,6 @@ const jobData1={
     position:"senior developer"
 }
 
-const jobData2={
-    company:"brookin 99",
-    position:"senior developer"
-}
-
-
 let withoutProperty=(data,toRemove)=>{
     const {company,position}=data;
     let rest={};
@@ -28,43 +22,71 @@ let withoutProperty=(data,toRemove)=>{
 }
 
 
-const jobData=[JSON.stringify(jobData1),JSON.stringify(jobData2)];
 const partialData=[JSON.stringify(withoutProperty(jobData1,"company")),JSON.stringify(withoutProperty(jobData1,"position"))];
 
-describe("test api job routes",()=>{
-    test("/Post sucess",async()=>{
-        for(let i;i<jobData.length;i++){
-            const responce=await request(app).post('/api/v1/jobs')
-            .set('Content-type','application/json')
-            .set('Authorization',`Bearer ${process.env.testToken}`)
-            .send(jobData[i]);
+describe("test post job routes",()=>{
+    test("/Post success",async()=>{
+        const responce=await request(app).post('/api/v1/jobs')
+        .set('Content-type','application/json')
+        .set('Authorization',`Bearer ${process.env.testToken}`)
+        .send(jobData1);
 
-            expect(responce.statusCode).toBe(200);
-            expect(responce._body.company).toBe("cryptic");
-            expect(responce._body.position).toBe("senior developer");
-        }
+        expect(responce.statusCode).toBe(200);
+        expect(responce._body.company).toBe("cryptic");
+        expect(responce._body.position).toBe("senior developer");
+        
     })
 
-    test("/Post fail",async()=>{
-        for(let i;i<partialData.length;i++){
-            const responce=await request(app).post('/api/v1/jobs')
-            .set('Content-type','application/json')
-            .set('Authorization',`Bearer ${process.env.testToken}`)
-            .send(partialData[i]);
+    test("/Post fail without company field",async()=>{
+        const responce=await request(app).post('/api/v1/jobs')
+        .set('Content-type','application/json')
+        .set('Authorization',`Bearer ${process.env.testToken}`)
+        .send(partialData[0]);
 
-            expect(responce.statusCode).toBe(400);
-        }
+        expect(responce.statusCode).toBe(400);
+        
 
     })
 
+    test("/Post fail without position field",async()=>{
+        const responce=await request(app).post('/api/v1/jobs')
+        .set('Content-type','application/json')
+        .set('Authorization',`Bearer ${process.env.testToken}`)
+        .send(partialData[1]);
+
+        expect(responce.statusCode).toBe(400);
+        
+
+    })
+})
+
+describe("/get job from api",()=>{
+    test("/GET job using id",async()=>{
+        const responce=await request(app).get(`/api/v1/jobs/${process.env.id}`)
+        .set('content-type','application-json')
+        .set('Authorization',`Bearer ${process.env.testToken}`)
+        expect(responce.statusCode).toBe(200);
+        expect(responce.type).toBe('application/json');
+    })    
+
+    test("/GET all job using token",async()=>{
+        const responce=await request(app).get(`/api/v1/jobs/`)
+        .set('content-type','application-json')
+        .set('Authorization',`Bearer ${process.env.testToken}`)
+        expect(responce.statusCode).toBe(200);
+        expect(responce.type).toBe('application/json');
 
 
 
+    }) 
+})
+
+/*
+describe("/Patch job from api",()=>{
 
 
 })
-
-
+*/
 
 
 

@@ -13,7 +13,9 @@ const createJob=asyncWrapper(async(req,res)=>{  //-->create new job
 
 const updateJob=asyncWrapper(async(req,res)=>{  //-->edit  job
     const {id}=req.params;
+    if(!id)throw new CustomError("Id not present",400);
     const {company,position,status}=req.body;
+    if(!company || ! position) throw new CustomError("field can't be empty",400);
     const updatedData=await jobModel.findOneAndUpdate({_id:id},{company:company,position:position,status:status},{runValidators:true,new:true});
    // console.log(updatedData);
     res.status(200).json(updatedData);
@@ -28,6 +30,7 @@ const getAllJob=asyncWrapper(async(req,res)=>{  //-->get all job
 
 const getJobById=asyncWrapper(async(req,res)=>{ //-->get job by id
     const {id}=req.params;
+    if(!id) throw new CustomError('id not present',400);
     const dataById=await jobModel.findOne({_id:id});
     if(!dataById) throw new CustomError('data dosen"t exsist',400)
     res.status(200).json(dataById);
