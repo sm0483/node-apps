@@ -72,7 +72,7 @@ describe("test post job routes",()=>{
 
 describe("/get job from api",()=>{
     test("/GET job using id",async()=>{
-        const responce=await request(app).get(`/api/v1/jobs/${process.env.id}`)
+        const responce=await request(app).get(`/api/v1/jobs/${process.env.id1}`)
         .set('content-type','application-json')
         .set('Authorization',`Bearer ${process.env.testToken}`)
         expect(responce.statusCode).toBe(200);
@@ -92,7 +92,42 @@ describe("/get job from api",()=>{
 })
 
 
-describe("Delete user",()=>{
+
+describe("/Patch request",()=>{
+    test("/Patch request success",async()=>{
+        const responce=await request(app).patch(`/api/v1/jobs/${process.env.id2}`)
+        .set('Authorization',`Bearer ${process.env.testToken}`)
+        .send(jobData1)
+        expect(responce.statusCode).toBe(200);
+
+    })
+
+    test("/Patch request failed no id",async()=>{
+        const responce=await request(app).patch(`/api/v1/jobs/`)
+        .set('Authorization',`Bearer ${process.env.testToken}`)
+        .send(jobData1)
+        expect(responce.statusCode).toBe(404);
+
+    })
+
+    test("/Patch request success",async()=>{
+        const responce=await request(app).patch(`/api/v1/jobs/4654654`)
+        .set('Authorization',`Bearer ${process.env.testToken}`)
+        .send(jobData1)
+        expect(responce.statusCode).toBe(400);
+
+    })
+
+
+    
+
+
+
+
+})
+
+
+describe("/Delete user",()=>{
     
     test("/Delete request failed",async()=>{
         const id=undefined;
@@ -106,7 +141,7 @@ describe("Delete user",()=>{
 
 
     test("/Delete request succes",async()=>{
-        const responce=await request(app).delete(`/api/v1/jobs/${process.env.id}`)
+        const responce=await request(app).delete(`/api/v1/jobs/${process.env.id1}`)
         .set('Content-type','application-json')
         .set('Authorization',`Bearer ${process.env.testToken}`);
         expect(responce.statusCode).toBe(200);
@@ -117,6 +152,9 @@ describe("Delete user",()=>{
 
     
 })
+
+
+
 
 
 

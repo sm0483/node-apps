@@ -13,11 +13,11 @@ const createJob=asyncWrapper(async(req,res)=>{  //-->create new job
 
 const updateJob=asyncWrapper(async(req,res)=>{  //-->edit  job
     const {id}=req.params;
-    if(!id)throw new CustomError("Id not present",400);
+    if(!id)throw new CustomError("id not present",400);
     const {company,position,status}=req.body;
     if(!company || !position) throw new CustomError("field can't be empty",400);
     const updatedData=await jobModel.findOneAndUpdate({_id:id},{company:company,position:position,status:status},{runValidators:true,new:true});
-   // console.log(updatedData);
+    console.log(updatedData);
     res.status(200).json(updatedData);
 })
 

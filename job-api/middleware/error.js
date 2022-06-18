@@ -9,6 +9,12 @@ const errorHandler=(err,req,res,next)=>{
             "status":status
         })
     }
+    else if(JSON.stringify(err).includes('CastError')){
+        res.status(400).json({
+            "message":"invaid id",
+            "status":400
+        })
+    }
     else{
         res.status(500).json({
             "message":"The server encountered an unexpected condition that prevented it from fulfilling the request",
