@@ -8,9 +8,6 @@ const request=require('supertest');
 //->patch
 //->delete
 
-
-
-
 //create job 
 const jobData1={
     company:"lk",
@@ -52,7 +49,7 @@ describe("test post job routes",()=>{
         .set('Content-type','application/json')
         .set('Authorization',`Bearer ${process.env.testToken}`)
         .send(partialData[0]);
-
+        console.log(responce);
         expect(responce.statusCode).toBe(400);
         
 
@@ -117,12 +114,6 @@ describe("/Patch request",()=>{
         expect(responce.statusCode).toBe(400);
 
     })
-
-
-    
-
-
-
 
 })
 
