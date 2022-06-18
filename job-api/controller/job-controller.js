@@ -15,7 +15,7 @@ const updateJob=asyncWrapper(async(req,res)=>{  //-->edit  job
     const {id}=req.params;
     if(!id)throw new CustomError("Id not present",400);
     const {company,position,status}=req.body;
-    if(!company || ! position) throw new CustomError("field can't be empty",400);
+    if(!company || !position) throw new CustomError("field can't be empty",400);
     const updatedData=await jobModel.findOneAndUpdate({_id:id},{company:company,position:position,status:status},{runValidators:true,new:true});
    // console.log(updatedData);
     res.status(200).json(updatedData);
@@ -38,6 +38,7 @@ const getJobById=asyncWrapper(async(req,res)=>{ //-->get job by id
 
 const deleteJob=asyncWrapper(async(req,res)=>{  //-->delete job
     const {id}=req.params;
+    if(!id)throw new CustomError('id not present',400);
     const delData=await jobModel.findOneAndDelete({_id:id});
     if(!delData) throw new CustomError('Cannot remove data',400);
     res.status(200).json(delData);

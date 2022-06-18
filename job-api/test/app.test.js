@@ -1,11 +1,19 @@
 const {app}=require('../app');
 const request=require('supertest');
-const { json } = require('express');
-const { post } = require('../routes/user-route');
+
+//routes
+
+//->post 
+//->get
+//->patch
+//->delete
+
+
+
 
 //create job 
 const jobData1={
-    company:"cryptic",
+    company:"lk",
     position:"senior developer"
 }
 
@@ -32,8 +40,10 @@ describe("test post job routes",()=>{
         .send(jobData1);
 
         expect(responce.statusCode).toBe(200);
-        expect(responce._body.company).toBe("cryptic");
+        expect(responce.type).toBe('application/json');
+        expect(responce._body.company).toBe("lk");
         expect(responce._body.position).toBe("senior developer");
+
         
     })
 
@@ -71,7 +81,7 @@ describe("/get job from api",()=>{
 
     test("/GET all job using token",async()=>{
         const responce=await request(app).get(`/api/v1/jobs/`)
-        .set('content-type','application-json')
+        .set('Content-type','application-json')
         .set('Authorization',`Bearer ${process.env.testToken}`)
         expect(responce.statusCode).toBe(200);
         expect(responce.type).toBe('application/json');
@@ -81,15 +91,32 @@ describe("/get job from api",()=>{
     }) 
 })
 
-/*
-describe("/Patch job from api",()=>{
+
+describe("Delete user",()=>{
+    
+    test("/Delete request failed",async()=>{
+        const id=undefined;
+        const responce=await request(app).delete(`/api/v1/jobs/`)
+        .set('Content-type','application-json')
+        .set('Authorization',`Bearer ${process.env.testToken}`);
+        expect(responce.statusCode).toBe(404);
+        expect(responce.type).toBe('application/json');
+
+    })
 
 
+    test("/Delete request succes",async()=>{
+        const responce=await request(app).delete(`/api/v1/jobs/${process.env.id}`)
+        .set('Content-type','application-json')
+        .set('Authorization',`Bearer ${process.env.testToken}`);
+        expect(responce.statusCode).toBe(200);
+        expect(responce.type).toBe('application/json');
+
+    })
+
+
+    
 })
-*/
-
-
-
 
 
 
